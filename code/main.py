@@ -3,10 +3,17 @@ import math
 from matplotlib.widgets import Button
 from matplotlib.widgets import Slider
 
+import time
+
+
 
 def draw_dda_line(x1, y1, x2, y2, color="b."):
     ax = plt.subplot(2, 4, 1)
     plt.title("ЦДА", fontsize=11)
+
+    # Замеряем время начала выполнения
+    start_time = time.time()
+
     ax.plot(x1, y1, color)
     ax.grid()
     ax.set_xlabel("x (point)")
@@ -24,20 +31,35 @@ def draw_dda_line(x1, y1, x2, y2, color="b."):
         x_inc = float(dx / steps)
         y_inc = float(dy / steps)
     else:
-        x_inc, y_inc = 0,1
+        x_inc, y_inc = 0, 1
 
     for i in range(0, int(steps + 1)):
         # draw pixels
         plt.plot(x1, y1, color)
         x1 += x_inc
         y1 += y_inc
+
+    # Замеряем время окончания выполнения
+    end_time = time.time()
+    execution_time = end_time - start_time
+
+    # Выводим время под графиком
+    plt.text(0.5, -0.3, f"Время выполнения: {execution_time:.4f} сек", horizontalalignment='center',
+             verticalalignment='center', transform=ax.transAxes)
+
     plt.axis('square')
+
+
 
 
 def draw_steps_line(x, k, b, steps, color="b."):
     ax = plt.subplot(2, 4, 2)
     ax.grid()
     plt.title("Пошаговый", fontsize=11)
+
+    # Замеряем время начала выполнения
+    start_time2 = time.time()
+
     ax.set_xlabel("x (point)")
     ax.set_ylabel("y (point)")
 
@@ -48,13 +70,25 @@ def draw_steps_line(x, k, b, steps, color="b."):
         y = round(y)
         plt.plot(int(x), y, color)
         x += 1
+
+    # Замеряем время окончания выполнения
+    end_time2 = time.time()
+    execution_time2 = end_time2 - start_time2
+
+    # Выводим время под графиком
+    plt.text(0.5, -0.3, f"Время выполнения: {execution_time2:.4f} сек", horizontalalignment='center',
+             verticalalignment='center', transform=ax.transAxes)
+
     plt.axis('square')
+
 
 
 def draw_b_circle(x1, y1, x2, y2, color="b."):
     ax = plt.subplot(2, 4, 3)
     ax.grid()
     plt.title("Брезенхем окружность", fontsize=11)
+    # Замеряем время начала выполнения
+    start_time3 = time.time()
     ax.set_xlabel("x (point)")
     ax.set_ylabel("y (point)")
 
@@ -66,6 +100,8 @@ def draw_b_circle(x1, y1, x2, y2, color="b."):
     x = 0
     y = r
     delta = (2 - 2 * r)
+
+
     while y >= 0:
         px.append(disp_x + x)
         py.append(disp_y + y)
@@ -88,8 +124,18 @@ def draw_b_circle(x1, y1, x2, y2, color="b."):
         x += 1
         delta = delta + (2 * (x - y))
         y -= 1
+
+    # Замеряем время окончания выполнения
+    end_time3 = time.time()
+    execution_time3 = end_time3 - start_time3
+
+    # Выводим время под графиком
+    plt.text(0.5, -0.3, f"Время выполнения: {execution_time3:.4f} сек", horizontalalignment='center',
+             verticalalignment='center', transform=ax.transAxes)
+
     plt.plot(px, py, color)
     plt.axis('square')
+
 
 
 def draw_b_line(x1, y1, x2, y2, color="b."):
@@ -125,6 +171,9 @@ def draw_b_line(x1, y1, x2, y2, color="b."):
 
     plt.plot(x, y, color)
 
+    # Замеряем время начала выполнения
+    start_time4 = time.time()
+
     while t < el:
         error -= es
         if error < 0:
@@ -136,6 +185,15 @@ def draw_b_line(x1, y1, x2, y2, color="b."):
             y += pdy
         t += 1
         plt.plot(x, y, color)
+
+    # Замеряем время окончания выполнения
+    end_time4 = time.time()
+    execution_time4 = end_time4 - start_time4
+
+    # Выводим время под графиком
+    plt.text(0.5, -0.3, f"Время выполнения: {execution_time4:.4f} сек", horizontalalignment='center',
+             verticalalignment='center', transform=ax.transAxes)
+
     plt.axis('square')
 
 
